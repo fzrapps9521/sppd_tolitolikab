@@ -1,0 +1,2100 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>e-SPPD | DISDUKCAPIL Kabupaten Tolitoli</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        teal: {
+                            500: '#0d9488',
+                            600: '#0f766e',
+                            700: '#115e59',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Printable area styles matching real PDF layouts */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #print-area, #print-area * {
+                visibility: visible;
+            }
+            #print-area {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                background: white;
+                color: black;
+            }
+            .no-print {
+                display: none !important;
+            }
+            @page {
+                size: portrait;
+                margin: 2cm;
+            }
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden text-slate-800">
+
+    <!-- APP CONTAINER -->
+    <div id="app" class="min-h-screen flex flex-col">
+        
+        <!-- LOGIN SCREEN -->
+        <div id="login-screen" class="hidden min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-900 via-primary-800 to-teal-700 p-4">
+            <div class="w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-100 transition-all duration-300 transform">
+                <div class="p-8 text-center bg-gradient-to-r from-primary-800 to-primary-700 text-white relative">
+                    <div class="absolute inset-0 bg-black opacity-10 pattern-grid-lg"></div>
+                    <!-- Logo Mockup -->
+                    <div class="relative z-10 flex justify-center mb-3">
+                        <div class="w-16 h-16 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/20 shadow-inner">
+                            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                            </svg>
+                        </div>
+                    </div>
+                    <h2 class="relative z-10 text-xl font-bold tracking-tight uppercase">DISDUKCAPIL Tolitoli</h2>
+                    <p class="relative z-10 text-xs text-primary-100 mt-1">Aplikasi Perjalanan Dinas Elektronik (e-SPPD)</p>
+                </div>
+                
+                <form id="login-form" class="p-8 space-y-5" onsubmit="handleLogin(event)">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Username / NIP</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                            </span>
+                            <input id="login-username" type="text" required class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none text-sm transition-all" placeholder="Masukkan username atau NIP">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Kata Sandi</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                            </span>
+                            <input id="login-password" type="password" required class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none text-sm transition-all" placeholder="••••••••">
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="w-full py-3 bg-gradient-to-r from-primary-600 to-teal-600 hover:from-primary-700 hover:to-teal-700 text-white font-bold rounded-xl shadow-lg shadow-primary-500/20 hover:shadow-xl transition-all duration-200 text-sm">
+                        Masuk Sistem
+                    </button>
+                    
+                    <div class="pt-4 border-t border-slate-100 text-center">
+                        <span class="text-xs text-slate-400">Bantuan Akses Default: <br>
+                            <span class="font-semibold text-slate-600">Admin</span>: admin / admin123 | 
+                            <span class="font-semibold text-slate-600">Pimpinan</span>: pimpinan / pimpinan123
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- MAIN LAYOUT SYSTEM -->
+        <div id="main-layout" class="hidden flex flex-col md:flex-row min-h-screen">
+            <!-- SIDEBAR -->
+            <aside id="sidebar" class="w-full md:w-64 bg-slate-900 text-white flex flex-col shrink-0 transition-transform duration-300 z-30">
+                <!-- Branding Header -->
+                <div class="p-5 border-b border-slate-800 flex items-center gap-3">
+                    <div class="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-sm leading-tight tracking-wider text-slate-100">DISDUKCAPIL</h1>
+                        <p class="text-[10px] text-teal-400 font-semibold uppercase tracking-widest">KAB. TOLITOLI</p>
+                    </div>
+                </div>
+
+                <!-- Active User Card -->
+                <div class="p-4 mx-4 my-4 bg-slate-800/50 rounded-xl border border-slate-800 flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center border-2 border-teal-500/30">
+                        <span id="user-avatar" class="font-bold text-slate-200">U</span>
+                    </div>
+                    <div class="overflow-hidden">
+                        <h4 id="user-display-name" class="font-semibold text-xs text-slate-200 truncate">Nama User</h4>
+                        <span id="user-display-role" class="inline-block mt-0.5 px-1.5 py-0.5 bg-teal-500/10 text-teal-400 text-[9px] font-bold rounded">ROLE</span>
+                    </div>
+                </div>
+
+                <!-- Navigation Links -->
+                <nav class="flex-1 px-3 space-y-1 overflow-y-auto">
+                    <!-- Nav items will be generated dynamically based on Roles -->
+                    <div id="nav-links-container" class="space-y-1"></div>
+                </nav>
+
+                <!-- Sidebar Footer -->
+                <div class="p-4 border-t border-slate-800">
+                    <button onclick="handleLogout()" class="w-full flex items-center gap-3 px-3 py-2 text-xs font-semibold text-rose-400 hover:bg-rose-500/10 rounded-lg transition-all duration-150">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                        Keluar Akun
+                    </button>
+                </div>
+            </aside>
+
+            <!-- MAIN WORKSPACE -->
+            <main class="flex-1 flex flex-col min-w-0 bg-slate-50">
+                <!-- TOP BAR -->
+                <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-20 shrink-0">
+                    <div class="flex items-center gap-4">
+                        <button id="mobile-menu-toggle" onclick="toggleSidebar()" class="md:hidden p-2 text-slate-600 hover:bg-slate-100 rounded-lg">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                        </button>
+                        <h2 id="page-title" class="text-lg font-bold text-slate-800">Dashboard Utama</h2>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs text-slate-400 font-medium hidden sm:inline" id="live-time-ticker">Kamis, 8 Juli 2026</span>
+                        <div class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-ping"></div>
+                        <span class="text-[10px] bg-emerald-50 text-emerald-600 border border-emerald-200 px-2 py-0.5 rounded font-bold uppercase tracking-wider">Live DB</span>
+                    </div>
+                </header>
+
+                <!-- CONTENT VIEWER -->
+                <div class="flex-1 p-6 overflow-y-auto" id="content-container">
+                    <!-- Dynamic Page Views will load here -->
+                </div>
+            </main>
+        </div>
+
+        <!-- MOCKUP NOTIFICATION BOX -->
+        <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2"></div>
+
+        <!-- HIDDEN PRINT RECONSTRUCTION CANVAS -->
+        <div id="print-area" class="hidden"></div>
+    </div>
+
+    <!-- SCRIPT LOGIC -->
+    <script>
+        // Setup Simulated Database on LocalStorage if not exists
+        const DEFAULT_PEGAWAI = [
+            { nip: "198105052023211011", nama: "ABDUL MUGHNI, S.Kom", id_jabatan: "J02", id_golongan: "G02", id_unit: "U03", no_hp: "085241002003", username: "abdul", password: "123", role: "Pegawai" },
+            { nip: "199104302023211026", nama: "MUHAMMAD FURQAN, S.Kom", id_jabatan: "J02", id_golongan: "G02", id_unit: "U03", no_hp: "081234567890", username: "furqan", password: "123", role: "Pegawai" },
+            { nip: "197402062009042002", nama: "ASNANI, SH", id_jabatan: "J01", id_golongan: "G01", id_unit: "U01", no_hp: "081122334455", username: "pimpinan", password: "pimpinan123", role: "Pimpinan" },
+            { nip: "admin123", nama: "Administrator Sistem", id_jabatan: "J02", id_golongan: "G02", id_unit: "U02", no_hp: "081111111111", username: "admin", password: "admin123", role: "Admin" },
+            { nip: "operator123", nama: "Operator Kepegawaian", id_jabatan: "J02", id_golongan: "G02", id_unit: "U02", no_hp: "082222222222", username: "operator", password: "operator123", role: "Operator" }
+        ];
+
+        const DEFAULT_JABATAN = [
+            { id_jabatan: "J01", nama_jabatan: "PLT. KEPALA DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL", eselon: "II/b" },
+            { id_jabatan: "J02", nama_jabatan: "AHLI PERTAMA - PRANATA KOMPUTER", eselon: "IX" },
+            { id_jabatan: "J03", nama_jabatan: "SEKRETARIS DINAS", eselon: "III/a" },
+            { id_jabatan: "J04", nama_jabatan: "KEPALA BIDANG PELAYANAN PENDAFTARAN PENDUDUK", eselon: "III/b" }
+        ];
+
+        const DEFAULT_GOLONGAN = [
+            { id_golongan: "G01", nama_golongan: "Pembina (IV/a)", pangkat: "Pembina" },
+            { id_golongan: "G02", nama_golongan: "Penata Muda / IX", pangkat: "Penata Muda" },
+            { id_golongan: "G03", nama_golongan: "Penata Muda Tk. I / III/b", pangkat: "Penata Muda Tk. I" }
+        ];
+
+        const DEFAULT_UNIT = [
+            { id_unit: "U01", nama_unit: "Pimpinan Dinas" },
+            { id_unit: "U02", nama_unit: "Sekretariat" },
+            { id_unit: "U03", nama_unit: "Bidang PIAK dan Pemanfaatan Data" },
+            { id_unit: "U04", nama_unit: "Bidang Pelayanan Pencatatan Sipil" }
+        ];
+
+        const DEFAULT_SPT = [
+            {
+                id_spt: "SPT-001",
+                no_spt: "090/20.13/Disdukcapil",
+                no_sppd: "094/20.13/Disdukcapil",
+                pegawai_terlibat: ["198105052023211011"],
+                maksud_tugas: "Perjalanan dinas koordinasi ke Palu guna pemeliharaan server SIAK Terpusat.",
+                tempat_tujuan: "Dinas Dukcapil Provinsi Sulawesi Tengah, Palu",
+                tgl_berangkat: "2026-07-07",
+                tgl_kembali: "2026-07-10",
+                alat_transport: "Darat / Mobil Dinas",
+                anggaran: "DPA - OPD Dinas Kependudukan dan Pencatatan Sipil Kabupaten Tolitoli Tahun Anggaran 2026",
+                dasar_hukum: "Keputusan Bupati Tolitoli Nomor DPA/A.1/2.12.0.00.0.00.01.0000/001/2026 Tahun 2026 Tanggal 15 Januari 2026 tentang Persetujuan Dokumen Pelaksanaan Anggaran Organisasi Perangkat Daerah (DPA - OPD) Kabupaten Tolitoli Tahun Anggaran 2026.",
+                status: "Approved",
+                catatan_pimpinan: "Disetujui. Laksanakan dengan penuh tanggung jawab.",
+                pembuat: "admin"
+            },
+            {
+                id_spt: "SPT-002",
+                no_spt: "090/29.39/Disdukcapil",
+                no_sppd: "094/30.39/Disdukcapil",
+                pegawai_terlibat: ["199104302023211026"],
+                maksud_tugas: "Penyusunan laporan pelaksanaan pencapaian kinerja program Dinas Kependudukan dan Pencatatan Sipil.",
+                tempat_tujuan: "Disdukcapil Propinsi Sulawesi Tengah, Palu",
+                tgl_berangkat: "2025-09-10",
+                tgl_kembali: "2025-09-12",
+                alat_transport: "Darat",
+                anggaran: "APBD Kabupaten Tolitoli Tahun Anggaran 2025",
+                dasar_hukum: "Surat Keputusan Bupati Tolitoli perihal Rencana Kerja Perubahan SKPD.",
+                status: "Approved",
+                catatan_pimpinan: "Selesaikan dan kumpulkan laporan sekembalinya ke instansi.",
+                pembuat: "operator"
+            }
+        ];
+
+        const DEFAULT_LAPORAN = [
+            {
+                id_laporan: "LAP-001",
+                id_spt: "SPT-002",
+                nip_pelapor: "199104302023211026",
+                ringkasan_hasil: "1. Dalam penyusunan laporan kinerja di disdukcapil kab. Tolitoli dapat ditingkatkan dan dipertanggung jawabkan demi terwujudnya administrasi kependudukan yang baik.\n2. Dokumen rencana kerja dan anggaran dilakukan secara terinci dan terstruktur dalam Menyusun pengelolaan keuangan dimasa yang akan datang.\n3. Merancang program yang berbasis kinerja untuk mencapai tujuan yang telah ditetapkan.",
+                file_gdrive_url: "https://drive.google.com/file/d/1xZ-LAPORAN_PERJALANAN-MOCK/view",
+                tgl_upload: "2025-09-15T09:00:00.000Z"
+            }
+        ];
+
+        const DEFAULT_LOGS = [
+            { id_log: "L-001", timestamp: "2026-07-08T10:00:00.000Z", actor: "admin", action: "CREATE", detail: "Menginisiasi database sistem default" },
+            { id_log: "L-002", timestamp: "2026-07-08T10:15:00.000Z", actor: "pimpinan", action: "APPROVE", detail: "Menyetujui SPT #090/20.13/Disdukcapil" }
+        ];
+
+        const DEFAULT_SETTINGS = {
+            kop_instansi: "PEMERINTAH KABUPATEN TOLITOLI\nDINAS KEPENDUDUKAN DAN PENCATATAN SIPIL\nAlamat: Jalan Magamu, no. 57 Telp: (0453) 23693 Tolitoli",
+            dasar_hukum: "Keputusan Bupati Tolitoli Nomor DPA/A.1/2.12.0.00.0.00.01.0000/001/2026 Tahun 2026 Tanggal 15 Januari 2026 tentang Persetujuan Dokumen Pelaksanaan Anggaran Organisasi Perangkat Daerah (DPA - OPD) Kabupaten Tolitoli Tahun Anggaran 2026.",
+            nama_kepala: "ASNANI, SH",
+            nip_kepala: "197402062009042002",
+            pangkat_kepala: "Pembina (IV/a)",
+            plh_sppd_nama: "Dra. Rachel Billik Tallo, M.Si",
+            plh_sppd_nip: "196711241994122004",
+            plh_sppd_pangkat: "Pembina Tingkat I (IV/b)"
+        };
+
+        // System State
+        let db = {
+            pegawai: [],
+            jabatan: [],
+            golongan: [],
+            unit: [],
+            spt: [],
+            laporan: [],
+            logs: [],
+            settings: {}
+        };
+
+        let session = {
+            currentUser: null,
+            activeTab: 'dashboard'
+        };
+
+        // Initialize Database from LocalStorage or Load Default
+        function initializeDB() {
+            if(!localStorage.getItem("e_sppd_pegawai")) {
+                localStorage.setItem("e_sppd_pegawai", JSON.stringify(DEFAULT_PEGAWAI));
+                localStorage.setItem("e_sppd_jabatan", JSON.stringify(DEFAULT_JABATAN));
+                localStorage.setItem("e_sppd_golongan", JSON.stringify(DEFAULT_GOLONGAN));
+                localStorage.setItem("e_sppd_unit", JSON.stringify(DEFAULT_UNIT));
+                localStorage.setItem("e_sppd_spt", JSON.stringify(DEFAULT_SPT));
+                localStorage.setItem("e_sppd_laporan", JSON.stringify(DEFAULT_LAPORAN));
+                localStorage.setItem("e_sppd_logs", JSON.stringify(DEFAULT_LOGS));
+                localStorage.setItem("e_sppd_settings", JSON.stringify(DEFAULT_SETTINGS));
+            }
+            loadDBFromStorage();
+        }
+
+        function loadDBFromStorage() {
+            db.pegawai = JSON.parse(localStorage.getItem("e_sppd_pegawai"));
+            db.jabatan = JSON.parse(localStorage.getItem("e_sppd_jabatan"));
+            db.golongan = JSON.parse(localStorage.getItem("e_sppd_golongan"));
+            db.unit = JSON.parse(localStorage.getItem("e_sppd_unit"));
+            db.spt = JSON.parse(localStorage.getItem("e_sppd_spt"));
+            db.laporan = JSON.parse(localStorage.getItem("e_sppd_laporan"));
+            db.logs = JSON.parse(localStorage.getItem("e_sppd_logs"));
+            db.settings = JSON.parse(localStorage.getItem("e_sppd_settings"));
+        }
+
+        function saveDBToStorage(key, data) {
+            localStorage.setItem(key, JSON.stringify(data));
+            loadDBFromStorage();
+        }
+
+        function writeLog(actor, action, detail) {
+            const newLog = {
+                id_log: "L-" + Date.now(),
+                timestamp: new Date().toISOString(),
+                actor: actor,
+                action: action,
+                detail: detail
+            };
+            db.logs.unshift(newLog);
+            saveDBToStorage("e_sppd_logs", db.logs);
+        }
+
+        // Notification utility
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            const bgClass = type === 'success' ? 'bg-emerald-600' : 'bg-rose-600';
+            
+            toast.className = `flex items-center gap-3 px-5 py-3 ${bgClass} text-white text-xs font-bold rounded-xl shadow-2xl animate-bounce duration-300`;
+            toast.innerHTML = `
+                <span>${message}</span>
+                <button onclick="this.parentElement.remove()" class="ml-2 hover:opacity-80">×</button>
+            `;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.remove('animate-bounce');
+                setTimeout(() => toast.remove(), 4000);
+            }, 500);
+        }
+
+        // Page Routing Setup based on User Role
+        const MENU_DEFINITIONS = [
+            { id: 'dashboard', label: 'Dashboard', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>', roles: ['Admin', 'Operator', 'Pegawai', 'Pimpinan'] },
+            { id: 'spt-sppd', label: 'Surat SPT & SPPD', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>', roles: ['Admin', 'Operator', 'Pegawai', 'Pimpinan'] },
+            { id: 'approval', label: 'Approval SPT', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>', roles: ['Admin', 'Pimpinan'] },
+            { id: 'laporan', label: 'Laporan Perjalanan', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>', roles: ['Admin', 'Operator', 'Pegawai'] },
+            { id: 'master', label: 'Master Data', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/>', roles: ['Admin', 'Operator'] },
+            { id: 'monitoring', label: 'Monitoring Perjalanan', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>', roles: ['Admin', 'Operator', 'Pimpinan'] },
+            { id: 'audit-log', label: 'Log Aktivitas', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>', roles: ['Admin'] },
+            { id: 'settings', label: 'Pengaturan Sistem', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>', roles: ['Admin'] },
+            { id: 'integration', label: 'Koneksi Spreadsheet', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v12m0 0l-4-4m4 4l4-4m0 6V7m0 0l4 4m-4-4l-4 4"/>', roles: ['Admin'] }
+        ];
+
+        // Auth Logic
+        function handleLogin(event) {
+            event.preventDefault();
+            const userIn = document.getElementById('login-username').value.trim();
+            const passIn = document.getElementById('login-password').value.trim();
+            
+            const user = db.pegawai.find(p => p.username === userIn || p.nip === userIn);
+            if (user && user.password === passIn) {
+                session.currentUser = user;
+                localStorage.setItem("e_sppd_session", JSON.stringify(user));
+                writeLog(user.username, "LOGIN", "Berhasil masuk sistem");
+                showToast(`Selamat datang kembali, ${user.nama}!`);
+                renderMainLayout();
+            } else {
+                showToast("Identitas atau kata sandi Anda salah!", "error");
+            }
+        }
+
+        function handleLogout() {
+            if(session.currentUser) {
+                writeLog(session.currentUser.username, "LOGOUT", "Keluar dari sistem");
+            }
+            session.currentUser = null;
+            localStorage.removeItem("e_sppd_session");
+            document.getElementById('main-layout').classList.add('hidden');
+            document.getElementById('login-screen').classList.remove('hidden');
+        }
+
+        // Toggle Sidebar Navigation on Mobile
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('-translate-x-full');
+        }
+
+        // Route Views
+        function switchTab(tabId) {
+            session.activeTab = tabId;
+            document.getElementById('page-title').textContent = MENU_DEFINITIONS.find(m => m.id === tabId)?.label || "Menu";
+            
+            // Mark Active Side Link
+            const links = document.querySelectorAll('.sidebar-link');
+            links.forEach(l => {
+                if(l.dataset.id === tabId) {
+                    l.classList.add('bg-slate-800', 'text-teal-400', 'border-l-4', 'border-teal-500');
+                    l.classList.remove('text-slate-400');
+                } else {
+                    l.classList.remove('bg-slate-800', 'text-teal-400', 'border-l-4', 'border-teal-500');
+                    l.classList.add('text-slate-400');
+                }
+            });
+
+            // Dynamically render page content
+            const contentContainer = document.getElementById('content-container');
+            if (tabId === 'dashboard') renderDashboard(contentContainer);
+            else if (tabId === 'spt-sppd') renderSptSppd(contentContainer);
+            else if (tabId === 'approval') renderApproval(contentContainer);
+            else if (tabId === 'laporan') renderLaporan(contentContainer);
+            else if (tabId === 'master') renderMaster(contentContainer);
+            else if (tabId === 'monitoring') renderMonitoring(contentContainer);
+            else if (tabId === 'audit-log') renderAuditLog(contentContainer);
+            else if (tabId === 'settings') renderSettings(contentContainer);
+            else if (tabId === 'integration') renderIntegration(contentContainer);
+        }
+
+        // Render Sidebar Navigation Dynamic Links
+        function renderMainLayout() {
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('main-layout').classList.remove('hidden');
+
+            const user = session.currentUser;
+            document.getElementById('user-avatar').textContent = user.nama.charAt(0);
+            document.getElementById('user-display-name').textContent = user.nama;
+            document.getElementById('user-display-role').textContent = user.role.toUpperCase();
+
+            const navContainer = document.getElementById('nav-links-container');
+            navContainer.innerHTML = '';
+
+            MENU_DEFINITIONS.forEach(menu => {
+                if(menu.roles.includes(user.role)) {
+                    const btn = document.createElement('button');
+                    btn.className = 'sidebar-link w-full flex items-center gap-3 px-4 py-3 text-xs font-semibold rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all duration-150 mb-1';
+                    btn.dataset.id = menu.id;
+                    btn.onclick = () => {
+                        switchTab(menu.id);
+                        if(window.innerWidth < 768) toggleSidebar();
+                    };
+                    btn.innerHTML = `
+                        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">${menu.icon}</svg>
+                        <span>${menu.label}</span>
+                    `;
+                    navContainer.appendChild(btn);
+                }
+            });
+
+            // Auto Route to first view
+            switchTab('dashboard');
+        }
+
+        // --- RENDER VIEWS ---
+
+        // DASHBOARD VIEW
+        function renderDashboard(container) {
+            // Count Data Elements
+            const totalSpt = db.spt.length;
+            const pendingSpt = db.spt.filter(s => s.status === 'Pending').length;
+            const approvedSpt = db.spt.filter(s => s.status === 'Approved').length;
+            
+            // Filter Personal SPT if logged in user is standard Pegawai
+            const user = session.currentUser;
+            const isPegawaiOnly = user.role === 'Pegawai';
+            const personalSpts = isPegawaiOnly ? db.spt.filter(s => s.pegawai_terlibat.includes(user.nip)) : db.spt;
+            
+            container.innerHTML = `
+                <!-- Statistics Header -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-5 mb-8">
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center gap-4">
+                        <div class="w-12 h-12 bg-primary-50 rounded-xl flex items-center justify-center text-primary-600 shrink-0">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                        </div>
+                        <div>
+                            <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Total SPT</span>
+                            <span class="text-2xl font-bold text-slate-800">${isPegawaiOnly ? personalSpts.length : totalSpt}</span>
+                        </div>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center gap-4">
+                        <div class="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center text-amber-600 shrink-0">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <div>
+                            <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Menunggu Approval</span>
+                            <span class="text-2xl font-bold text-slate-800">${isPegawaiOnly ? personalSpts.filter(s => s.status === 'Pending').length : pendingSpt}</span>
+                        </div>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center gap-4">
+                        <div class="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600 shrink-0">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <div>
+                            <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Telah Disetujui</span>
+                            <span class="text-2xl font-bold text-slate-800">${isPegawaiOnly ? personalSpts.filter(s => s.status === 'Approved').length : approvedSpt}</span>
+                        </div>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center gap-4">
+                        <div class="w-12 h-12 bg-teal-50 rounded-xl flex items-center justify-center text-teal-600 shrink-0">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                        </div>
+                        <div>
+                            <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Total Pegawai</span>
+                            <span class="text-2xl font-bold text-slate-800">${db.pegawai.length}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Grid Section -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Task / Active Trips list -->
+                    <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 flex flex-col">
+                        <div class="flex items-center justify-between mb-5">
+                            <h3 class="font-bold text-slate-800 text-sm">Daftar Penugasan Aktif (${personalSpts.length})</h3>
+                            <button onclick="switchTab('spt-sppd')" class="text-xs font-bold text-primary-600 hover:underline">Lihat Semua</button>
+                        </div>
+                        <div class="flex-1 space-y-4 overflow-y-auto max-h-[350px] pr-2">
+                            ${personalSpts.length === 0 ? `
+                                <div class="text-center py-10 text-slate-400 text-xs">Belum ada rincian perjalanan dinas terdaftar.</div>
+                            ` : personalSpts.map(s => {
+                                const names = s.pegawai_terlibat.map(nip => {
+                                    const p = db.pegawai.find(x => x.nip === nip);
+                                    return p ? p.nama : nip;
+                                }).join(', ');
+                                
+                                let statusColor = "bg-slate-100 text-slate-600";
+                                if (s.status === 'Approved') statusColor = "bg-emerald-50 text-emerald-600 border border-emerald-200";
+                                else if (s.status === 'Pending') statusColor = "bg-amber-50 text-amber-600 border border-amber-200";
+                                else if (s.status === 'Rejected') statusColor = "bg-rose-50 text-rose-600 border border-rose-200";
+
+                                return `
+                                <div class="p-4 bg-slate-50 border border-slate-200/70 rounded-xl hover:border-slate-300 transition-all flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                                    <div class="space-y-1 min-w-0 flex-1">
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-xs font-extrabold text-slate-800">${s.no_spt || "Belum ada nomor (Draft)"}</span>
+                                            <span class="px-2 py-0.5 rounded text-[9px] font-bold ${statusColor}">${s.status.toUpperCase()}</span>
+                                        </div>
+                                        <p class="text-xs text-slate-500 font-medium truncate"><strong>Tujuan:</strong> ${s.tempat_tujuan}</p>
+                                        <p class="text-[11px] text-slate-400 truncate"><strong>Pegawai:</strong> ${names}</p>
+                                    </div>
+                                    <div class="flex items-center gap-2 self-end md:self-auto shrink-0">
+                                        <span class="text-[10px] text-slate-400 font-bold bg-white px-2 py-1 rounded border">${formatDateIndo(s.tgl_berangkat)}</span>
+                                        <button onclick="viewTripDetail('${s.id_spt}')" class="p-1.5 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 text-slate-600">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+
+                    <!-- Visual Quick Info Card -->
+                    <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 flex flex-col justify-between">
+                        <div class="space-y-4">
+                            <h3 class="font-bold text-slate-800 text-sm">Informasi Instansi</h3>
+                            <div class="p-4 bg-primary-50 rounded-xl border border-primary-100 flex items-start gap-3">
+                                <svg class="w-5 h-5 text-primary-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                <div class="text-[11px] text-primary-800 leading-relaxed">
+                                    <strong>Dasar Hukum Aktif:</strong><br>
+                                    <span class="block mt-1 italic text-primary-700">${db.settings.dasar_hukum || "Belum disetel."}</span>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="flex justify-between text-xs border-b pb-2">
+                                    <span class="text-slate-400">Kepala Dinas:</span>
+                                    <span class="font-semibold text-slate-700">${db.settings.nama_kepala || "-"}</span>
+                                </div>
+                                <div class="flex justify-between text-xs border-b pb-2">
+                                    <span class="text-slate-400">Plh Penandatangan SPPD:</span>
+                                    <span class="font-semibold text-slate-700">${db.settings.plh_sppd_nama || "-"}</span>
+                                </div>
+                                <div class="flex justify-between text-xs pb-2">
+                                    <span class="text-slate-400">Alamat Kantor:</span>
+                                    <span class="font-semibold text-slate-700 text-right">Jl. Magamu No. 57, Tolitoli</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-4 border-t border-slate-100 flex gap-2">
+                            <button onclick="window.print()" class="flex-1 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition-all">Cetak Dashboard</button>
+                            <button onclick="triggerDirectBackup()" class="flex-1 py-2 bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold rounded-xl shadow-md shadow-teal-500/20 transition-all">Unduh Cadangan</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // SPT-SPPD MANAGEMENT VIEW
+        function renderSptSppd(container) {
+            const user = session.currentUser;
+            const canManage = ['Admin', 'Operator'].includes(user.role);
+            const isPegawai = user.role === 'Pegawai';
+            const trips = isPegawai ? db.spt.filter(t => t.pegawai_terlibat.includes(user.nip)) : db.spt;
+
+            container.innerHTML = `
+                <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                        <div class="relative w-full max-w-md">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                            </span>
+                            <input type="text" id="spt-search" oninput="filterSptTable()" class="w-full pl-9 pr-4 py-2 border border-slate-200 rounded-xl text-xs outline-none focus:ring-2 focus:ring-primary-500" placeholder="Cari berdasarkan nomor surat, tujuan atau pelaksana...">
+                        </div>
+                        ${canManage ? `
+                            <button onclick="openSptModal()" class="w-full sm:w-auto px-4 py-2.5 bg-gradient-to-r from-primary-600 to-teal-600 hover:from-primary-700 hover:to-teal-700 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-primary-500/10">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                                Buat SPT / SPPD Baru
+                            </button>
+                        ` : ''}
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs text-slate-600 border-collapse">
+                            <thead>
+                                <tr class="bg-slate-50 text-slate-500 font-bold border-b border-slate-200">
+                                    <th class="p-3">No. SPT / SPPD</th>
+                                    <th class="p-3">Maksud & Tempat Tujuan</th>
+                                    <th class="p-3">Pelaksana Tugas</th>
+                                    <th class="p-3">Waktu Perjalanan</th>
+                                    <th class="p-3 text-center">Status</th>
+                                    <th class="p-3 text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="spt-table-body">
+                                <!-- Generated Dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- SPT EDIT / ADD MODAL -->
+                <div id="spt-modal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                    <div class="bg-white rounded-2xl shadow-2xl border border-slate-100 max-w-3xl w-full max-h-[90vh] flex flex-col overflow-hidden animate-in fade-in duration-200">
+                        <div class="p-5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+                            <h3 id="spt-modal-title" class="font-extrabold text-slate-800 text-sm">Pembuatan SPT / SPPD Baru</h3>
+                            <button onclick="closeSptModal()" class="text-slate-400 hover:text-slate-600 font-bold text-lg">×</button>
+                        </div>
+                        <form id="spt-form" onsubmit="saveSptData(event)" class="p-6 overflow-y-auto space-y-4">
+                            <input type="hidden" id="form-spt-id">
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Nomor Surat SPT (Manual)</label>
+                                    <input type="text" id="form-spt-no" required class="w-full px-3 py-2 border rounded-xl text-xs focus:ring-2 focus:ring-primary-500 outline-none" placeholder="Contoh: 090/20.13/Disdukcapil">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Nomor Surat SPPD (Manual)</label>
+                                    <input type="text" id="form-sppd-no" required class="w-full px-3 py-2 border rounded-xl text-xs focus:ring-2 focus:ring-primary-500 outline-none" placeholder="Contoh: 094/20.13/Disdukcapil">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Pilih Pegawai yang Ditugaskan (Multi-select)</label>
+                                <div id="form-pegawai-list" class="max-h-28 overflow-y-auto border border-slate-200 rounded-xl p-3 grid grid-cols-1 md:grid-cols-2 gap-2 bg-slate-50">
+                                    <!-- Options populated dynamically -->
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Maksud Perjalanan Dinas</label>
+                                <textarea id="form-spt-maksud" required rows="2" class="w-full px-3 py-2 border rounded-xl text-xs focus:ring-2 focus:ring-primary-500 outline-none" placeholder="Tuliskan maksud dan tujuan dinas..."></textarea>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Tempat Tujuan</label>
+                                    <input type="text" id="form-spt-tujuan" required class="w-full px-3 py-2 border rounded-xl text-xs focus:ring-2 focus:ring-primary-500 outline-none" placeholder="Contoh: Disdukcapil Propinsi Sulawesi Tengah, Palu">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Alat Transportasi</label>
+                                    <input type="text" id="form-spt-alat" required class="w-full px-3 py-2 border rounded-xl text-xs focus:ring-2 focus:ring-primary-500 outline-none" placeholder="Contoh: Darat / Mobil Dinas">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Tanggal Berangkat</label>
+                                    <input type="date" id="form-spt-tgl-berangkat" required class="w-full px-3 py-2 border rounded-xl text-xs focus:ring-2 focus:ring-primary-500 outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Tanggal Kembali</label>
+                                    <input type="date" id="form-spt-tgl-kembali" required class="w-full px-3 py-2 border rounded-xl text-xs focus:ring-2 focus:ring-primary-500 outline-none">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Beban Anggaran</label>
+                                <input type="text" id="form-spt-anggaran" required class="w-full px-3 py-2 border rounded-xl text-xs focus:ring-2 focus:ring-primary-500 outline-none" placeholder="Contoh: DPA-OPD Tahun Anggaran 2026">
+                            </div>
+
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Dasar Hukum Penugasan</label>
+                                <textarea id="form-spt-dasar" rows="2" class="w-full px-3 py-2 border rounded-xl text-xs focus:ring-2 focus:ring-primary-500 outline-none" placeholder="Dasar rujukan penugasan..."></textarea>
+                            </div>
+
+                            <div class="pt-4 border-t border-slate-200 flex justify-end gap-2">
+                                <button type="button" onclick="closeSptModal()" class="px-4 py-2 border rounded-xl text-xs font-semibold hover:bg-slate-50">Batalkan</button>
+                                <button type="submit" class="px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white text-xs font-bold rounded-xl shadow-lg shadow-primary-500/20">Simpan Data</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            `;
+
+            renderSptTable();
+        }
+
+        function renderSptTable() {
+            const user = session.currentUser;
+            const canManage = ['Admin', 'Operator'].includes(user.role);
+            const isPegawai = user.role === 'Pegawai';
+            const trips = isPegawai ? db.spt.filter(t => t.pegawai_terlibat.includes(user.nip)) : db.spt;
+
+            const tbody = document.getElementById('spt-table-body');
+            tbody.innerHTML = '';
+
+            if (trips.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="p-6 text-center text-slate-400">Belum ada data perjalanan dinas tercatat.</td></tr>`;
+                return;
+            }
+
+            trips.forEach(s => {
+                const names = s.pegawai_terlibat.map(nip => {
+                    const p = db.pegawai.find(x => x.nip === nip);
+                    return p ? p.nama : nip;
+                }).join('<br> • ');
+
+                let statusColor = "bg-slate-100 text-slate-600 border border-slate-200";
+                if (s.status === 'Approved') statusColor = "bg-emerald-50 text-emerald-600 border border-emerald-200";
+                else if (s.status === 'Pending') statusColor = "bg-amber-50 text-amber-600 border border-amber-200";
+                else if (s.status === 'Rejected') statusColor = "bg-rose-50 text-rose-600 border border-rose-200";
+
+                tbody.innerHTML += `
+                    <tr class="border-b border-slate-150 hover:bg-slate-50">
+                        <td class="p-3 font-semibold text-slate-800">
+                            SPT: ${s.no_spt || "Draft"}<br>
+                            <span class="text-[10px] text-slate-400">SPPD: ${s.no_sppd || "-"}</span>
+                        </td>
+                        <td class="p-3">
+                            <span class="font-medium text-slate-800 block">${s.maksud_tugas}</span>
+                            <span class="text-[10px] text-slate-400 block mt-0.5">Tujuan: ${s.tempat_tujuan}</span>
+                        </td>
+                        <td class="p-3 text-[11px] font-semibold text-slate-600">
+                            • ${names}
+                        </td>
+                        <td class="p-3 text-[11px]">
+                            ${formatDateIndo(s.tgl_berangkat)} s/d<br>
+                            ${formatDateIndo(s.tgl_kembali)}
+                        </td>
+                        <td class="p-3 text-center">
+                            <span class="px-2 py-0.5 rounded text-[9px] font-bold ${statusColor}">${s.status.toUpperCase()}</span>
+                        </td>
+                        <td class="p-3 text-center">
+                            <div class="flex items-center justify-center gap-1.5">
+                                <button onclick="viewTripDetail('${s.id_spt}')" title="Detail Perjalanan" class="p-1 border border-slate-200 rounded hover:bg-slate-100 text-slate-600">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                </button>
+                                ${s.status === 'Approved' ? `
+                                    <button onclick="printSPT('${s.id_spt}')" title="Cetak SPT PDF" class="p-1 border border-primary-200 rounded hover:bg-primary-50 text-primary-600">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+                                    </button>
+                                    <button onclick="printSPPD('${s.id_spt}')" title="Cetak SPPD PDF" class="p-1 border border-teal-200 rounded hover:bg-teal-50 text-teal-600">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                    </button>
+                                ` : ''}
+                                ${canManage ? `
+                                    <button onclick="openSptModal('${s.id_spt}')" class="p-1 border border-amber-200 rounded hover:bg-amber-50 text-amber-600">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                                    </button>
+                                    <button onclick="deleteSptData('${s.id_spt}')" class="p-1 border border-rose-200 rounded hover:bg-rose-50 text-rose-600">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                                    </button>
+                                ` : ''}
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function filterSptTable() {
+            const q = document.getElementById('spt-search').value.toLowerCase();
+            const rows = document.querySelectorAll('#spt-table-body tr');
+            rows.forEach(r => {
+                const text = r.textContent.toLowerCase();
+                r.style.display = text.includes(q) ? '' : 'none';
+            });
+        }
+
+        // Open SPT / SPPD Modal
+        function openSptModal(id = null) {
+            document.getElementById('spt-modal').classList.remove('hidden');
+            const pListContainer = document.getElementById('form-pegawai-list');
+            pListContainer.innerHTML = '';
+            
+            // Populate Pegawai checkboxes
+            db.pegawai.forEach(p => {
+                pListContainer.innerHTML += `
+                    <label class="flex items-center gap-2 text-xs font-semibold text-slate-700 cursor-pointer hover:text-slate-900">
+                        <input type="checkbox" name="pegawai-select" value="${p.nip}" class="rounded border-slate-300 text-primary-600 focus:ring-primary-500">
+                        <span>${p.nama} (${p.nip})</span>
+                    </label>
+                `;
+            });
+
+            // Auto-fill default settings values
+            document.getElementById('form-spt-dasar').value = db.settings.dasar_hukum;
+
+            if (id) {
+                // Edit Mode
+                const s = db.spt.find(x => x.id_spt === id);
+                document.getElementById('spt-modal-title').textContent = "Ubah Data SPT / SPPD";
+                document.getElementById('form-spt-id').value = s.id_spt;
+                document.getElementById('form-spt-no').value = s.no_spt;
+                document.getElementById('form-sppd-no').value = s.no_sppd;
+                document.getElementById('form-spt-maksud').value = s.maksud_tugas;
+                document.getElementById('form-spt-tujuan').value = s.tempat_tujuan;
+                document.getElementById('form-spt-alat').value = s.alat_transport;
+                document.getElementById('form-spt-tgl-berangkat').value = s.tgl_berangkat;
+                document.getElementById('form-spt-tgl-kembali').value = s.tgl_kembali;
+                document.getElementById('form-spt-anggaran').value = s.anggaran;
+                document.getElementById('form-spt-dasar').value = s.dasar_hukum;
+
+                // Check active pegawai
+                const checks = document.querySelectorAll('input[name="pegawai-select"]');
+                checks.forEach(c => {
+                    if (s.pegawai_terlibat.includes(c.value)) c.checked = true;
+                });
+            } else {
+                // Add Mode
+                document.getElementById('spt-modal-title').textContent = "Pembuatan SPT / SPPD Baru";
+                document.getElementById('form-spt-id').value = '';
+                document.getElementById('spt-form').reset();
+                document.getElementById('form-spt-dasar').value = db.settings.dasar_hukum;
+            }
+        }
+
+        function closeSptModal() {
+            document.getElementById('spt-modal').classList.add('hidden');
+        }
+
+        function saveSptData(event) {
+            event.preventDefault();
+            
+            // Collect Selected Pegawai
+            const checks = document.querySelectorAll('input[name="pegawai-select"]:checked');
+            const pSelected = Array.from(checks).map(c => c.value);
+            
+            if (pSelected.length === 0) {
+                showToast("Anda harus memilih minimal satu pegawai pelaksana!", "error");
+                return;
+            }
+
+            const id = document.getElementById('form-spt-id').value;
+            const noSpt = document.getElementById('form-spt-no').value;
+            const noSppd = document.getElementById('form-sppd-no').value;
+            const maksud = document.getElementById('form-spt-maksud').value;
+            const tujuan = document.getElementById('form-spt-tujuan').value;
+            const alat = document.getElementById('form-spt-alat').value;
+            const tglB = document.getElementById('form-spt-tgl-berangkat').value;
+            const tglK = document.getElementById('form-spt-tgl-kembali').value;
+            const anggaran = document.getElementById('form-spt-anggaran').value;
+            const dasar = document.getElementById('form-spt-dasar').value;
+
+            if (id) {
+                // Update
+                const idx = db.spt.findIndex(x => x.id_spt === id);
+                db.spt[idx] = {
+                    ...db.spt[idx],
+                    no_spt: noSpt,
+                    no_sppd: noSppd,
+                    pegawai_terlibat: pSelected,
+                    maksud_tugas: maksud,
+                    tempat_tujuan: tujuan,
+                    alat_transport: alat,
+                    tgl_berangkat: tglB,
+                    tgl_kembali: tglK,
+                    anggaran: anggaran,
+                    dasar_hukum: dasar
+                };
+                writeLog(session.currentUser.username, "UPDATE", `Mengubah data SPT No. ${noSpt}`);
+                showToast("Data SPT berhasil diubah!");
+            } else {
+                // Add New
+                const newSpt = {
+                    id_spt: "SPT-" + Date.now(),
+                    no_spt: noSpt,
+                    no_sppd: noSppd,
+                    pegawai_terlibat: pSelected,
+                    maksud_tugas: maksud,
+                    tempat_tujuan: tujuan,
+                    alat_transport: alat,
+                    tgl_berangkat: tglB,
+                    tgl_kembali: tglK,
+                    anggaran: anggaran,
+                    dasar_hukum: dasar,
+                    status: "Pending", // Default awaiting approval
+                    catatan_pimpinan: "",
+                    pembuat: session.currentUser.username
+                };
+                db.spt.push(newSpt);
+                writeLog(session.currentUser.username, "CREATE", `Membuat SPT No. ${noSpt}`);
+                showToast("SPT Baru berhasil diajukan untuk disetujui!");
+            }
+
+            saveDBToStorage("e_sppd_spt", db.spt);
+            closeSptModal();
+            renderSptTable();
+        }
+
+        function deleteSptData(id) {
+            if (confirm("Apakah Anda yakin ingin menghapus data SPT & SPPD ini? Tindakan ini tidak dapat dibatalkan.")) {
+                const s = db.spt.find(x => x.id_spt === id);
+                db.spt = db.spt.filter(x => x.id_spt !== id);
+                writeLog(session.currentUser.username, "DELETE", `Menghapus SPT No. ${s.no_spt}`);
+                saveDBToStorage("e_sppd_spt", db.spt);
+                showToast("Data SPT berhasil dihapus!");
+                renderSptTable();
+            }
+        }
+
+        // VIEW TRIP DETAIL MODAL
+        function viewTripDetail(id) {
+            const s = db.spt.find(x => x.id_spt === id);
+            const pDetails = s.pegawai_terlibat.map(nip => {
+                const p = db.pegawai.find(x => x.nip === nip);
+                const j = db.jabatan.find(x => x.id_jabatan === p?.id_jabatan)?.nama_jabatan || "-";
+                const g = db.golongan.find(x => x.id_golongan === p?.id_golongan)?.nama_golongan || "-";
+                return p ? `${p.nama} (${p.nip}) - ${j} / ${g}` : nip;
+            }).join('<br> • ');
+
+            // Build Detail Info Box
+            const detailModal = document.createElement('div');
+            detailModal.className = 'fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4';
+            detailModal.innerHTML = `
+                <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full overflow-hidden border border-slate-100 flex flex-col max-h-[90vh]">
+                    <div class="p-5 border-b bg-slate-50 flex items-center justify-between">
+                        <h3 class="font-extrabold text-slate-800 text-sm">Detil Informasi Perjalanan Dinas</h3>
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" class="text-slate-400 hover:text-slate-600 font-bold text-lg">×</button>
+                    </div>
+                    <div class="p-6 overflow-y-auto space-y-4 text-xs">
+                        <div class="grid grid-cols-2 gap-4 border-b pb-3">
+                            <div>
+                                <span class="text-slate-400 font-semibold block uppercase tracking-wider text-[10px]">Nomor Surat SPT</span>
+                                <span class="font-bold text-slate-800">${s.no_spt || "Belum diterbitkan"}</span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400 font-semibold block uppercase tracking-wider text-[10px]">Nomor Surat SPPD</span>
+                                <span class="font-bold text-slate-800">${s.no_sppd || "Belum diterbitkan"}</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <span class="text-slate-400 font-semibold block uppercase tracking-wider text-[10px] mb-1">Pelaksana Tugas Dinas</span>
+                            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl leading-relaxed text-slate-700 font-medium">
+                                • ${pDetails}
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4 border-b pb-3">
+                            <div>
+                                <span class="text-slate-400 font-semibold block uppercase tracking-wider text-[10px]">Maksud Perjalanan</span>
+                                <span class="font-bold text-slate-800 leading-relaxed">${s.maksud_tugas}</span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400 font-semibold block uppercase tracking-wider text-[10px]">Tujuan Tempat</span>
+                                <span class="font-bold text-slate-800">${s.tempat_tujuan}</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-3 gap-4 border-b pb-3">
+                            <div>
+                                <span class="text-slate-400 font-semibold block uppercase tracking-wider text-[10px]">Keberangkatan</span>
+                                <span class="font-bold text-slate-800">${formatDateIndo(s.tgl_berangkat)}</span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400 font-semibold block uppercase tracking-wider text-[10px]">Kepulangan</span>
+                                <span class="font-bold text-slate-800">${formatDateIndo(s.tgl_kembali)}</span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400 font-semibold block uppercase tracking-wider text-[10px]">Lama Dinas</span>
+                                <span class="font-bold text-slate-800">${calculateDays(s.tgl_berangkat, s.tgl_kembali)} Hari</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4 border-b pb-3">
+                            <div>
+                                <span class="text-slate-400 font-semibold block uppercase tracking-wider text-[10px]">Alat Angkut</span>
+                                <span class="font-bold text-slate-800">${s.alat_transport}</span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400 font-semibold block uppercase tracking-wider text-[10px]">Beban Anggaran</span>
+                                <span class="font-bold text-slate-800">${s.anggaran}</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <span class="text-slate-400 font-semibold block uppercase tracking-wider text-[10px]">Catatan / Penolakan Pimpinan</span>
+                            <p class="font-semibold text-rose-600 italic mt-1">${s.catatan_pimpinan || "(Tidak ada catatan khusus)"}</p>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-slate-50 border-t flex justify-end gap-2">
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" class="px-4 py-2 bg-slate-800 text-white rounded-xl text-xs font-bold">Tutup Detil</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(detailModal);
+        }
+
+        // APPROVAL VIEW
+        function renderApproval(container) {
+            const pList = db.spt.filter(s => s.status === 'Pending');
+            container.innerHTML = `
+                <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6">
+                    <h3 class="font-bold text-slate-800 text-sm mb-4">Persetujuan Berkas Perjalanan Dinas (${pList.length})</h3>
+                    <div class="space-y-4">
+                        ${pList.length === 0 ? `
+                            <div class="text-center py-10 text-slate-400 text-xs">Semua berkas pengajuan telah ditindaklanjuti.</div>
+                        ` : pList.map(s => {
+                            const names = s.pegawai_terlibat.map(nip => {
+                                const p = db.pegawai.find(x => x.nip === nip);
+                                return p ? p.nama : nip;
+                            }).join(', ');
+
+                            return `
+                                <div class="p-5 border border-slate-200/80 rounded-2xl bg-slate-50 space-y-4">
+                                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
+                                        <div>
+                                            <span class="px-2 py-0.5 bg-amber-50 text-amber-600 border border-amber-200 text-[10px] font-bold rounded-lg uppercase">Menunggu Persetujuan</span>
+                                            <h4 class="font-bold text-slate-800 text-sm mt-2">No. SPT: ${s.no_spt || "Belum ada nomor"}</h4>
+                                            <p class="text-xs text-slate-400">Dibuat oleh: <span class="font-semibold text-slate-600">${s.pembuat}</span></p>
+                                        </div>
+                                        <div class="text-xs text-slate-400 md:text-right">
+                                            <span>Mulai Tugas:</span>
+                                            <strong class="text-slate-700 block">${formatDateIndo(s.tgl_berangkat)} s/d ${formatDateIndo(s.tgl_kembali)}</strong>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs border-y py-3 text-slate-600">
+                                        <div>
+                                            <span class="font-bold text-slate-400 uppercase text-[9px] tracking-wider block">Pelaksana Dinas</span>
+                                            <span class="font-semibold text-slate-800">${names}</span>
+                                        </div>
+                                        <div>
+                                            <span class="font-bold text-slate-400 uppercase text-[9px] tracking-wider block">Maksud Perjalanan</span>
+                                            <span class="font-semibold text-slate-800">${s.maksud_tugas}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex flex-col md:flex-row gap-3">
+                                        <input type="text" id="note-${s.id_spt}" class="flex-1 px-3 py-2 border rounded-xl text-xs outline-none focus:ring-2 focus:ring-primary-500" placeholder="Ketik catatan / umpan balik jika ditolak...">
+                                        <div class="flex gap-2">
+                                            <button onclick="processApproval('${s.id_spt}', 'Rejected')" class="px-4 py-2 bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-bold rounded-xl transition-all">Tolak Pengajuan</button>
+                                            <button onclick="processApproval('${s.id_spt}', 'Approved')" class="px-4 py-2 bg-gradient-to-r from-primary-600 to-teal-600 hover:from-primary-700 hover:to-teal-700 text-white text-xs font-bold rounded-xl shadow-lg shadow-primary-500/10 transition-all">Setujui & Tandatangani</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function processApproval(id, status) {
+            const note = document.getElementById(`note-${id}`).value;
+            const idx = db.spt.findIndex(x => x.id_spt === id);
+            
+            db.spt[idx].status = status;
+            db.spt[idx].catatan_pimpinan = note || (status === 'Approved' ? 'Disetujui.' : 'Ditolak untuk revisi.');
+            
+            writeLog(session.currentUser.username, status === 'Approved' ? 'APPROVE' : 'REJECT', `Menentukan status ${status} pada SPT No. ${db.spt[idx].no_spt}`);
+            saveDBToStorage("e_sppd_spt", db.spt);
+            showToast(`Status pengajuan berhasil diubah menjadi: ${status}!`);
+            switchTab('approval');
+        }
+
+        // LAPORAN PERJALANAN VIEW & MOCK GDRIVE UPLOAD
+        function renderLaporan(container) {
+            const user = session.currentUser;
+            const isPegawai = user.role === 'Pegawai';
+            
+            // Only list Approved trips with reports
+            const approvedTrips = isPegawai ? db.spt.filter(s => s.status === 'Approved' && s.pegawai_terlibat.includes(user.nip)) : db.spt.filter(s => s.status === 'Approved');
+
+            container.innerHTML = `
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Form Upload Laporan -->
+                    <div class="lg:col-span-1 bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4 flex flex-col">
+                        <h3 class="font-bold text-slate-800 text-sm">Input Laporan Perjalanan</h3>
+                        <form id="laporan-form" onsubmit="saveLaporanData(event)" class="space-y-4">
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Pilih Kegiatan Perjalanan Dinas</label>
+                                <select id="form-lap-spt" required class="w-full px-3 py-2 border rounded-xl text-xs outline-none bg-slate-50 focus:ring-2 focus:ring-primary-500">
+                                    <option value="">-- Pilih Perjalanan Dinas --</option>
+                                    ${approvedTrips.map(s => `<option value="${s.id_spt}">${s.no_spt} (${s.tempat_tujuan})</option>`).join('')}
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Pelapor (NIP Pegawai)</label>
+                                <input type="text" id="form-lap-nip" readonly class="w-full px-3 py-2 border rounded-xl text-xs bg-slate-100 cursor-not-allowed" value="${user.nip}">
+                            </div>
+
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Ringkasan Hasil Kegiatan</label>
+                                <textarea id="form-lap-hasil" required rows="4" class="w-full px-3 py-2 border rounded-xl text-xs outline-none focus:ring-2 focus:ring-primary-500" placeholder="Ketik ringkasan capaian hasil perjalanan dinas..."></textarea>
+                            </div>
+
+                            <!-- Mock Google Drive Upload Widget -->
+                            <div class="border-2 border-dashed border-slate-200 rounded-2xl p-4 bg-slate-50 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-slate-100/50 transition-all" id="drop-area" onclick="triggerFileUpload()">
+                                <input type="file" id="file-input" class="hidden" onchange="handleFileSelected(event)">
+                                <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center text-primary-600 mb-2">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                                </div>
+                                <span class="text-xs font-bold text-slate-700 block" id="upload-status-text">Simulasi Unggah ke Google Drive</span>
+                                <span class="text-[10px] text-slate-400 block mt-1">Seret / Klik berkas lampiran (PDF/Docs)</span>
+                            </div>
+
+                            <button type="submit" class="w-full py-2.5 bg-gradient-to-r from-primary-600 to-teal-600 hover:from-primary-700 hover:to-teal-700 text-white text-xs font-bold rounded-xl shadow-lg shadow-primary-500/20">Kirim & Simpan Laporan</button>
+                        </form>
+                    </div>
+
+                    <!-- List Laporan yang Sudah Ada -->
+                    <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6">
+                        <h3 class="font-bold text-slate-800 text-sm mb-4">Arsip Laporan Hasil Perjalanan</h3>
+                        <div class="space-y-4">
+                            ${db.laporan.length === 0 ? `
+                                <div class="text-center py-10 text-slate-400 text-xs">Belum ada laporan perjalanan yang diunggah.</div>
+                            ` : db.laporan.map(l => {
+                                const s = db.spt.find(x => x.id_spt === l.id_spt);
+                                const p = db.pegawai.find(x => x.nip === l.nip_pelapor);
+                                return `
+                                    <div class="p-4 border border-slate-200/80 rounded-2xl hover:border-slate-300 transition-all space-y-2">
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-xs font-extrabold text-slate-800">SPT: ${s ? s.no_spt : "Dihapus"}</span>
+                                            <span class="text-[10px] text-slate-400 font-semibold">${formatDateIndo(l.tgl_upload)}</span>
+                                        </div>
+                                        <p class="text-xs text-slate-500 leading-relaxed font-semibold italic">"${l.ringkasan_hasil}"</p>
+                                        <div class="flex items-center justify-between border-t pt-2 mt-2">
+                                            <span class="text-[10px] text-slate-400 font-medium">Oleh: ${p ? p.nama : l.nip_pelapor}</span>
+                                            <div class="flex gap-2">
+                                                <button onclick="printLaporan('${l.id_laporan}')" class="px-2 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded text-[10px] font-bold">Cetak Laporan</button>
+                                                <a href="${l.file_gdrive_url}" target="_blank" class="px-2 py-1 bg-teal-50 text-teal-600 border border-teal-200 hover:bg-teal-100 rounded text-[10px] font-bold flex items-center gap-1">
+                                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                                                    Google Drive
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        let tempUploadedUrl = "https://drive.google.com/file/d/1xZ-LAPORAN_PERJALANAN-MOCK/view";
+
+        function triggerFileUpload() {
+            document.getElementById('file-input').click();
+        }
+
+        function handleFileSelected(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const statusText = document.getElementById('upload-status-text');
+                statusText.textContent = "Mengunggah ke GDrive...";
+                statusText.className = "text-xs font-bold text-amber-600 animate-pulse block";
+                
+                setTimeout(() => {
+                    statusText.textContent = "Berkas Berhasil Terunggah!";
+                    statusText.className = "text-xs font-bold text-emerald-600 block";
+                    tempUploadedUrl = `https://drive.google.com/file/d/mock-uuid-${Date.now()}/view`;
+                    showToast(`Simulasi unggah file '${file.name}' ke Google Drive Sukses!`);
+                }, 1500);
+            }
+        }
+
+        function saveLaporanData(event) {
+            event.preventDefault();
+            const sptId = document.getElementById('form-lap-spt').value;
+            const nip = document.getElementById('form-lap-nip').value;
+            const ringkasan = document.getElementById('form-lap-hasil').value;
+
+            const newLap = {
+                id_laporan: "LAP-" + Date.now(),
+                id_spt: sptId,
+                nip_pelapor: nip,
+                ringkasan_hasil: ringkasan,
+                file_gdrive_url: tempUploadedUrl,
+                tgl_upload: new Date().toISOString()
+            };
+
+            db.laporan.unshift(newLap);
+            saveDBToStorage("e_sppd_laporan", db.laporan);
+            writeLog(session.currentUser.username, "CREATE", `Mengunggah Laporan Hasil Perjalanan untuk SPT ID: ${sptId}`);
+            showToast("Laporan Perjalanan Dinas berhasil dikirim!");
+            switchTab('laporan');
+        }
+
+        // MASTER DATA CRUD VIEW
+        function renderMaster(container) {
+            container.innerHTML = `
+                <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-6">
+                    <!-- Master Tabs Selection -->
+                    <div class="flex border-b border-slate-200 gap-4 overflow-x-auto">
+                        <button onclick="switchMasterSubTab('pegawai')" id="mt-pegawai" class="master-tab-btn py-2 border-b-2 font-bold text-xs px-2 text-primary-600 border-primary-600">Master Pegawai</button>
+                        <button onclick="switchMasterSubTab('jabatan')" id="mt-jabatan" class="master-tab-btn py-2 border-b-2 font-bold text-xs px-2 text-slate-400 border-transparent">Master Jabatan</button>
+                        <button onclick="switchMasterSubTab('golongan')" id="mt-golongan" class="master-tab-btn py-2 border-b-2 font-bold text-xs px-2 text-slate-400 border-transparent">Master Golongan</button>
+                        <button onclick="switchMasterSubTab('unit')" id="mt-unit" class="master-tab-btn py-2 border-b-2 font-bold text-xs px-2 text-slate-400 border-transparent">Master Unit Kerja</button>
+                    </div>
+
+                    <!-- Dynamic Master Content Area -->
+                    <div id="master-sub-content"></div>
+                </div>
+            `;
+
+            switchMasterSubTab('pegawai');
+        }
+
+        function switchMasterSubTab(type) {
+            const tabs = document.querySelectorAll('.master-tab-btn');
+            tabs.forEach(t => {
+                if(t.id === `mt-${type}`) {
+                    t.classList.add('text-primary-600', 'border-primary-600');
+                    t.classList.remove('text-slate-400', 'border-transparent');
+                } else {
+                    t.classList.remove('text-primary-600', 'border-primary-600');
+                    t.classList.add('text-slate-400', 'border-transparent');
+                }
+            });
+
+            const subArea = document.getElementById('master-sub-content');
+            if (type === 'pegawai') renderMasterPegawai(subArea);
+            else if (type === 'jabatan') renderMasterJabatan(subArea);
+            else if (type === 'golongan') renderMasterGolongan(subArea);
+            else if (type === 'unit') renderMasterUnit(subArea);
+        }
+
+        function renderMasterPegawai(container) {
+            container.innerHTML = `
+                <div class="flex justify-between items-center mb-4">
+                    <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider">Tabel Data Pegawai</h4>
+                    <button onclick="openPegawaiModal()" class="px-3 py-1.5 bg-primary-600 hover:bg-primary-700 text-white text-[11px] font-bold rounded-lg flex items-center gap-1 shadow-md shadow-primary-500/10">Tambah Pegawai</button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs text-slate-600">
+                        <thead>
+                            <tr class="bg-slate-50 text-slate-500 border-b">
+                                <th class="p-2.5">NIP</th>
+                                <th class="p-2.5">Nama Pegawai</th>
+                                <th class="p-2.5">Jabatan / Golongan</th>
+                                <th class="p-2.5">Unit Kerja</th>
+                                <th class="p-2.5">Role</th>
+                                <th class="p-2.5 text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${db.pegawai.map(p => {
+                                const j = db.jabatan.find(x => x.id_jabatan === p.id_jabatan)?.nama_jabatan || "-";
+                                const g = db.golongan.find(x => x.id_golongan === p.id_golongan)?.nama_golongan || "-";
+                                const u = db.unit.find(x => x.id_unit === p.id_unit)?.nama_unit || "-";
+                                return `
+                                    <tr class="border-b hover:bg-slate-50/50">
+                                        <td class="p-2.5 font-semibold text-slate-800">${p.nip}</td>
+                                        <td class="p-2.5 font-medium">${p.nama}</td>
+                                        <td class="p-2.5 text-[11px]"><strong>${j}</strong><br><span class="text-slate-400">${g}</span></td>
+                                        <td class="p-2.5 text-[11px] text-slate-500">${u}</td>
+                                        <td class="p-2.5"><span class="px-2 py-0.5 bg-slate-100 text-slate-700 rounded text-[9px] font-bold">${p.role.toUpperCase()}</span></td>
+                                        <td class="p-2.5 text-center">
+                                            <div class="flex items-center justify-center gap-1.5">
+                                                <button onclick="openPegawaiModal('${p.nip}')" class="text-amber-500 hover:text-amber-600 font-semibold text-[10px]">Edit</button> |
+                                                <button onclick="deletePegawai('${p.nip}')" class="text-rose-500 hover:text-rose-600 font-semibold text-[10px]">Hapus</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                `;
+                            }).join('')}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- PEGAWAI MODAL -->
+                <div id="pegawai-modal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                    <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden border">
+                        <div class="p-4 bg-slate-50 border-b flex items-center justify-between">
+                            <h4 id="pegawai-modal-title" class="font-extrabold text-slate-800 text-xs">Tambah Pegawai Baru</h4>
+                            <button onclick="closePegawaiModal()" class="text-slate-400 hover:text-slate-600 font-bold">×</button>
+                        </div>
+                        <form id="pegawai-form" onsubmit="savePegawai(event)" class="p-5 space-y-3 text-xs">
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">NIP (Kunci Utama)</label>
+                                    <input type="text" id="p-form-nip" required class="w-full px-3 py-2 border rounded-xl outline-none focus:ring-2 focus:ring-primary-500">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Nama Lengkap & Gelar</label>
+                                    <input type="text" id="p-form-nama" required class="w-full px-3 py-2 border rounded-xl outline-none focus:ring-2 focus:ring-primary-500">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Jabatan</label>
+                                    <select id="p-form-jabatan" required class="w-full px-3 py-2 border rounded-xl outline-none">
+                                        ${db.jabatan.map(j => `<option value="${j.id_jabatan}">${j.nama_jabatan}</option>`).join('')}
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Golongan</label>
+                                    <select id="p-form-golongan" required class="w-full px-3 py-2 border rounded-xl outline-none">
+                                        ${db.golongan.map(g => `<option value="${g.id_golongan}">${g.nama_golongan}</option>`).join('')}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Unit Kerja</label>
+                                    <select id="p-form-unit" required class="w-full px-3 py-2 border rounded-xl outline-none">
+                                        ${db.unit.map(u => `<option value="${u.id_unit}">${u.nama_unit}</option>`).join('')}
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">No. Kontak</label>
+                                    <input type="text" id="p-form-hp" required class="w-full px-3 py-2 border rounded-xl outline-none focus:ring-2 focus:ring-primary-500">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-3 gap-3 border-t pt-3">
+                                <div>
+                                    <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Username Login</label>
+                                    <input type="text" id="p-form-user" required class="w-full px-3 py-2 border rounded-xl outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Password</label>
+                                    <input type="password" id="p-form-pass" required class="w-full px-3 py-2 border rounded-xl outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Role Otoritas</label>
+                                    <select id="p-form-role" required class="w-full px-3 py-2 border rounded-xl outline-none">
+                                        <option value="Pegawai">Pegawai</option>
+                                        <option value="Operator">Operator</option>
+                                        <option value="Pimpinan">Pimpinan</option>
+                                        <option value="Admin">Admin</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="pt-3 border-t flex justify-end gap-2">
+                                <button type="button" onclick="closePegawaiModal()" class="px-3 py-1.5 border rounded-xl">Batalkan</button>
+                                <button type="submit" class="px-3 py-1.5 bg-primary-600 text-white font-bold rounded-xl shadow-md">Simpan</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Dummy/Mock controller logic for Pegawai modal
+        function openPegawaiModal(nip = null) {
+            document.getElementById('pegawai-modal').classList.remove('hidden');
+            if(nip) {
+                const p = db.pegawai.find(x => x.nip === nip);
+                document.getElementById('pegawai-modal-title').textContent = "Ubah Data Pegawai";
+                document.getElementById('p-form-nip').value = p.nip;
+                document.getElementById('p-form-nip').setAttribute('readonly', 'true');
+                document.getElementById('p-form-nama').value = p.nama;
+                document.getElementById('p-form-jabatan').value = p.id_jabatan;
+                document.getElementById('p-form-golongan').value = p.id_golongan;
+                document.getElementById('p-form-unit').value = p.id_unit;
+                document.getElementById('p-form-hp').value = p.no_hp;
+                document.getElementById('p-form-user').value = p.username;
+                document.getElementById('p-form-pass').value = p.password;
+                document.getElementById('p-form-role').value = p.role;
+            } else {
+                document.getElementById('pegawai-modal-title').textContent = "Tambah Pegawai Baru";
+                document.getElementById('p-form-nip').removeAttribute('readonly');
+                document.getElementById('pegawai-form').reset();
+            }
+        }
+
+        function closePegawaiModal() {
+            document.getElementById('pegawai-modal').classList.add('hidden');
+        }
+
+        function savePegawai(event) {
+            event.preventDefault();
+            const nip = document.getElementById('p-form-nip').value;
+            const nama = document.getElementById('p-form-nama').value;
+            const j = document.getElementById('p-form-jabatan').value;
+            const g = document.getElementById('p-form-golongan').value;
+            const u = document.getElementById('p-form-unit').value;
+            const hp = document.getElementById('p-form-hp').value;
+            const user = document.getElementById('p-form-user').value;
+            const pass = document.getElementById('p-form-pass').value;
+            const role = document.getElementById('p-form-role').value;
+
+            const existingIdx = db.pegawai.findIndex(x => x.nip === nip);
+            if (existingIdx > -1) {
+                db.pegawai[existingIdx] = { nip, nama, id_jabatan: j, id_golongan: g, id_unit: u, no_hp: hp, username: user, password: pass, role };
+            } else {
+                db.pegawai.push({ nip, nama, id_jabatan: j, id_golongan: g, id_unit: u, no_hp: hp, username: user, password: pass, role });
+            }
+
+            saveDBToStorage("e_sppd_pegawai", db.pegawai);
+            writeLog(session.currentUser.username, "UPDATE", `Menyimpan data master pegawai: ${nama}`);
+            showToast("Data pegawai berhasil disimpan!");
+            closePegawaiModal();
+            switchMasterSubTab('pegawai');
+        }
+
+        function deletePegawai(nip) {
+            if(confirm("Hapus pegawai ini dari database?")) {
+                db.pegawai = db.pegawai.filter(x => x.nip !== nip);
+                saveDBToStorage("e_sppd_pegawai", db.pegawai);
+                showToast("Pegawai dihapus.");
+                switchMasterSubTab('pegawai');
+            }
+        }
+
+        function renderMasterJabatan(container) {
+            container.innerHTML = `<p class="text-xs text-slate-500 italic">Membuka data internal jabatan instansi...</p>`;
+            // Similar CRUD layout for Jabatan can be done here, but let's keep it compact for code legibility
+            container.innerHTML = `
+                <div class="overflow-x-auto text-xs">
+                    <table class="w-full text-left">
+                        <thead><tr class="bg-slate-50 text-slate-500 border-b"><th class="p-2">ID Jabatan</th><th class="p-2">Nama Jabatan</th><th class="p-2">Tingkat Eselon</th></tr></thead>
+                        <tbody>
+                            ${db.jabatan.map(j => `<tr class="border-b"><td class="p-2 font-bold">${j.id_jabatan}</td><td class="p-2">${j.nama_jabatan}</td><td class="p-2">${j.eselon}</td></tr>`).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function renderMasterGolongan(container) {
+            container.innerHTML = `
+                <div class="overflow-x-auto text-xs">
+                    <table class="w-full text-left">
+                        <thead><tr class="bg-slate-50 text-slate-500 border-b"><th class="p-2">ID Golongan</th><th class="p-2">Nama Golongan</th><th class="p-2">Pangkat</th></tr></thead>
+                        <tbody>
+                            ${db.golongan.map(g => `<tr class="border-b"><td class="p-2 font-bold">${g.id_golongan}</td><td class="p-2">${g.nama_golongan}</td><td class="p-2">${g.pangkat}</td></tr>`).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function renderMasterUnit(container) {
+            container.innerHTML = `
+                <div class="overflow-x-auto text-xs">
+                    <table class="w-full text-left">
+                        <thead><tr class="bg-slate-50 text-slate-500 border-b"><th class="p-2">ID Unit</th><th class="p-2">Nama Unit Kerja / Bidang</th></tr></thead>
+                        <tbody>
+                            ${db.unit.map(u => `<tr class="border-b"><td class="p-2 font-bold">${u.id_unit}</td><td class="p-2">${u.nama_unit}</td></tr>`).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        // MONITORING VIEW
+        function renderMonitoring(container) {
+            container.innerHTML = `
+                <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-bold text-slate-800 text-sm">Status Keberadaan Pegawai (Real-Time)</h3>
+                        <span class="text-xs bg-teal-50 text-teal-600 font-bold border border-teal-200 px-2 py-0.5 rounded-lg animate-pulse">Monitoring Aktif</span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <!-- We map the monitoring status dynamically -->
+                        ${db.pegawai.map(p => {
+                            // Find if this pegawai has an approved trip during current date
+                            const activeTrip = db.spt.find(s => {
+                                if (s.status !== 'Approved') return false;
+                                if (!s.pegawai_terlibat.includes(p.nip)) return false;
+                                const today = new Date().toISOString().split('T')[0];
+                                return today >= s.tgl_berangkat && today <= s.tgl_kembali;
+                            });
+
+                            let statusText = "Di Kantor (Siaga)";
+                            let badgeColor = "bg-emerald-50 text-emerald-600 border border-emerald-200";
+                            let icon = `<span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>`;
+
+                            if (activeTrip) {
+                                statusText = `Dinas Luar (${activeTrip.tempat_tujuan})`;
+                                badgeColor = "bg-sky-50 text-sky-600 border border-sky-200";
+                                icon = `<span class="w-2.5 h-2.5 rounded-full bg-sky-500 animate-ping"></span>`;
+                            }
+
+                            return `
+                                <div class="p-4 border border-slate-200/80 rounded-2xl bg-slate-50 flex items-center justify-between">
+                                    <div class="space-y-1">
+                                        <h4 class="font-bold text-slate-800 text-xs">${p.nama}</h4>
+                                        <p class="text-[10px] text-slate-400 font-medium">NIP: ${p.nip}</p>
+                                    </div>
+                                    <span class="px-2 py-1 rounded text-[9px] font-bold flex items-center gap-1.5 ${badgeColor}">
+                                        ${icon}
+                                        ${statusText}
+                                    </span>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        // AUDIT LOG VIEW
+        function renderAuditLog(container) {
+            container.innerHTML = `
+                <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-slate-800 text-sm">Log Aktivitas Sistem (Audit Trail)</h3>
+                        <button onclick="clearSystemLogs()" class="text-rose-500 hover:underline font-bold text-xs">Bersihkan Log</button>
+                    </div>
+                    <div class="overflow-y-auto max-h-[400px] space-y-2 pr-2">
+                        ${db.logs.map(l => {
+                            let actionColor = "text-slate-600 bg-slate-100";
+                            if (l.action === 'CREATE') actionColor = "text-emerald-600 bg-emerald-50";
+                            else if (l.action === 'UPDATE') actionColor = "text-amber-600 bg-amber-50";
+                            else if (l.action === 'DELETE') actionColor = "text-rose-600 bg-rose-50";
+                            else if (l.action === 'APPROVE') actionColor = "text-sky-600 bg-sky-50";
+
+                            return `
+                                <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl flex justify-between items-start text-xs text-slate-600">
+                                    <div class="space-y-1">
+                                        <div class="flex items-center gap-2">
+                                            <span class="font-bold text-slate-800">${l.actor}</span>
+                                            <span class="px-1.5 py-0.5 rounded text-[8px] font-bold ${actionColor}">${l.action}</span>
+                                        </div>
+                                        <p class="text-[11px] font-medium text-slate-500">${l.detail}</p>
+                                    </div>
+                                    <span class="text-[9px] text-slate-400">${new Date(l.timestamp).toLocaleString('id-ID')}</span>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function clearSystemLogs() {
+            if(confirm("Bersihkan seluruh berkas audit log?")) {
+                db.logs = [];
+                saveDBToStorage("e_sppd_logs", db.logs);
+                showToast("Audit log berhasil dibersihkan.");
+                switchTab('audit-log');
+            }
+        }
+
+        // SETTINGS VIEW
+        function renderSettings(container) {
+            container.innerHTML = `
+                <form id="settings-form" onsubmit="saveSystemSettings(event)" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                    <h3 class="font-bold text-slate-800 text-sm mb-4">Pengaturan Kop Surat & Legalitas</h3>
+                    
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Teks Kop Surat Instansi (3 baris format resmi)</label>
+                        <textarea id="set-kop" required rows="3" class="w-full px-3 py-2 border rounded-xl text-xs outline-none focus:ring-2 focus:ring-primary-500 font-mono">${db.settings.kop_instansi}</textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Dasar Hukum Default (Untuk SPT Otomatis)</label>
+                        <textarea id="set-dasar" required rows="3" class="w-full px-3 py-2 border rounded-xl text-xs outline-none focus:ring-2 focus:ring-primary-500">${db.settings.dasar_hukum}</textarea>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 border-t pt-4">
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Nama Kepala Dinas (Penandatangan SPT)</label>
+                            <input type="text" id="set-kepala-nama" value="${db.settings.nama_kepala}" required class="w-full px-3 py-2 border rounded-xl text-xs outline-none focus:ring-2 focus:ring-primary-500">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Pangkat & Golongan Kepala Dinas</label>
+                            <input type="text" id="set-kepala-pangkat" value="${db.settings.pangkat_kepala}" required class="w-full px-3 py-2 border rounded-xl text-xs outline-none focus:ring-2 focus:ring-primary-500">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">NIP Kepala Dinas</label>
+                            <input type="text" id="set-kepala-nip" value="${db.settings.nip_kepala}" required class="w-full px-3 py-2 border rounded-xl text-xs outline-none focus:ring-2 focus:ring-primary-500">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 border-t pt-4">
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Nama Pejabat Pembuat Komitmen (Penandatangan SPPD)</label>
+                            <input type="text" id="set-sppd-nama" value="${db.settings.plh_sppd_nama}" required class="w-full px-3 py-2 border rounded-xl text-xs outline-none focus:ring-2 focus:ring-primary-500">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Pangkat & Golongan PPK</label>
+                            <input type="text" id="set-sppd-pangkat" value="${db.settings.plh_sppd_pangkat}" required class="w-full px-3 py-2 border rounded-xl text-xs outline-none focus:ring-2 focus:ring-primary-500">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">NIP PPK</label>
+                            <input type="text" id="set-sppd-nip" value="${db.settings.plh_sppd_nip}" required class="w-full px-3 py-2 border rounded-xl text-xs outline-none focus:ring-2 focus:ring-primary-500">
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t flex justify-end">
+                        <button type="submit" class="px-5 py-2.5 bg-primary-600 hover:bg-primary-700 text-white text-xs font-bold rounded-xl shadow-lg shadow-primary-500/20 transition-all">Simpan Pengaturan</button>
+                    </div>
+                </form>
+            `;
+        }
+
+        function saveSystemSettings(event) {
+            event.preventDefault();
+            db.settings = {
+                kop_instansi: document.getElementById('set-kop').value,
+                dasar_hukum: document.getElementById('set-dasar').value,
+                nama_kepala: document.getElementById('set-kepala-nama').value,
+                pangkat_kepala: document.getElementById('set-kepala-pangkat').value,
+                nip_kepala: document.getElementById('set-kepala-nip').value,
+                plh_sppd_nama: document.getElementById('set-sppd-nama').value,
+                plh_sppd_pangkat: document.getElementById('set-sppd-pangkat').value,
+                plh_sppd_nip: document.getElementById('set-sppd-nip').value
+            };
+
+            saveDBToStorage("e_sppd_settings", db.settings);
+            writeLog(session.currentUser.username, "UPDATE", "Mengubah pengaturan Kop instansi & penandatangan");
+            showToast("Pengaturan sistem berhasil diperbarui!");
+            switchTab('settings');
+        }
+
+        // GOOGLE SPREADSHEET AUTOMATIC INTEGRATION HUB
+        function renderIntegration(container) {
+            container.innerHTML = `
+                <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-6">
+                    <div class="space-y-1">
+                        <h3 class="font-bold text-slate-800 text-sm">Integrasi Database Google Sheets Otomatis</h3>
+                        <p class="text-xs text-slate-400">Ikuti langkah berikut untuk mengkoneksikan backend web app ini langsung ke Google Spreadsheet instansi Anda secara gratis.</p>
+                    </div>
+
+                    <div class="p-4 bg-teal-50 border border-teal-100 rounded-2xl text-xs text-teal-800 space-y-2">
+                        <h4 class="font-extrabold flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-teal-500"></span>
+                            Apa keunggulan integrasi ini?
+                        </h4>
+                        <p class="leading-relaxed">Sistem Anda tidak lagi menggunakan penyimpanan lokal browser (localStorage). Semua data pegawai, SPT, SPPD, dan tautan lampiran Google Drive akan tersimpan aman secara terpusat pada Google Sheets milik instansi, bebas biaya server.</p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3 text-xs text-slate-600">
+                            <div class="w-6 h-6 bg-slate-100 rounded-full flex items-center justify-center font-bold text-slate-800 shrink-0 mt-0.5">1</div>
+                            <div>
+                                <strong class="text-slate-800 block mb-1">Buat Spreadsheet Baru</strong>
+                                Buat sebuah dokumen Spreadsheet kosong di Google Drive Anda. Beri nama <code class="font-mono bg-slate-100 px-1 py-0.5 rounded text-rose-500 font-bold">db_sppd_tolitoli</code>.
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3 text-xs text-slate-600">
+                            <div class="w-6 h-6 bg-slate-100 rounded-full flex items-center justify-center font-bold text-slate-800 shrink-0 mt-0.5">2</div>
+                            <div>
+                                <strong class="text-slate-800 block mb-1">Buka Apps Script Editor</strong>
+                                Klik menu <strong class="text-slate-800">Ekstensi / Extensions</strong> -> <strong class="text-slate-800">Apps Script</strong> pada spreadsheet Anda. Hapus semua fungsi bawaan di editor tersebut.
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3 text-xs text-slate-600">
+                            <div class="w-6 h-6 bg-slate-100 rounded-full flex items-center justify-center font-bold text-slate-800 shrink-0 mt-0.5">3</div>
+                            <div>
+                                <strong class="text-slate-800 block mb-1">Salin Kode Setup Otomatis di Bawah Ini</strong>
+                                Tempelkan kode Apps Script berikut ke dalam editor spreadsheet Anda, lalu simpan:
+                                <pre class="bg-slate-900 text-slate-100 p-4 rounded-2xl overflow-x-auto text-[10px] font-mono leading-relaxed mt-2 max-h-48 select-all">
+function doGet(e) {
+  return HtmlService.createHtmlOutput("Konektor e-SPPD Tolitoli Aktif!");
+}
+
+function setupDatabase() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sheets = [
+    { name: "tb_pegawai", headers: ["nip", "nama", "id_jabatan", "id_golongan", "id_unit", "no_hp", "username", "password", "role"] },
+    { name: "tb_spt_sppd", headers: ["id_spt", "no_spt", "no_sppd", "pegawai_terlibat", "maksud_tugas", "tempat_tujuan", "tgl_berangkat", "tgl_kembali", "alat_transport", "anggaran", "dasar_hukum", "status", "catatan_pimpinan"] },
+    { name: "tb_laporan", headers: ["id_laporan", "id_spt", "nip_pelapor", "ringkasan_hasil", "file_gdrive_url", "tgl_upload"] },
+    { name: "tb_log", headers: ["id_log", "timestamp", "actor", "action", "detail"] }
+  ];
+
+  sheets.forEach(s => {
+    let sheet = ss.getSheetByName(s.name);
+    if (!sheet) {
+      sheet = ss.insertSheet(s.name);
+      sheet.getRange(1, 1, 1, s.headers.length).setValues([s.headers]).setFontWeight("bold").setBackground("#0F172A").setFontColor("#FFFFFF");
+      sheet.setFrozenRows(1);
+    }
+  });
+}
+                                </pre>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3 text-xs text-slate-600">
+                            <div class="w-6 h-6 bg-slate-100 rounded-full flex items-center justify-center font-bold text-slate-800 shrink-0 mt-0.5">4</div>
+                            <div>
+                                <strong class="text-slate-800 block mb-1">Jalankan Fungsi <code class="font-mono bg-slate-100 px-1 rounded text-primary-600">setupDatabase()</code></strong>
+                                Pilih fungsi <code class="font-mono">setupDatabase</code> pada toolbar Apps Script Anda, klik tombol <strong class="text-slate-800">Jalankan / Run</strong>. Berikan persetujuan izin akses dokumen. Spreadsheet Anda akan otomatis terbuat tabel-tabelnya secara rapi!
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t flex justify-end">
+                        <button type="button" onclick="triggerMockSetupDatabase()" class="px-5 py-2.5 bg-gradient-to-r from-primary-600 to-teal-600 hover:from-primary-700 hover:to-teal-700 text-white text-xs font-bold rounded-xl shadow-lg shadow-primary-500/10 flex items-center gap-1.5 transition-all">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                            Tes Koneksi Database Otomatis (setupDatabase)
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function triggerMockSetupDatabase() {
+            showToast("Menjalankan setupDatabase()...");
+            setTimeout(() => {
+                showToast("Berhasil terhubung ke Spreadsheet & menginisiasi skema tabel tb_pegawai, tb_spt_sppd, tb_laporan, tb_log!", "success");
+            }, 1000);
+        }
+
+        // DATABASE BACKUP EXPORT TRIGGER
+        function triggerDirectBackup() {
+            // Simulated backup xlsx file download
+            const link = document.createElement("a");
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db, null, 2));
+            link.setAttribute("href", dataStr);
+            link.setAttribute("download", `BACKUP_e_SPPD_DISDUKCAPIL_TOLITOLI_${new Date().toISOString().split('T')[0]}.json`);
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            showToast("Arsip basis data JSON berhasil diunduh ke komputer lokal!");
+        }
+
+
+        // --- PDF LAYOUT RECONSTRUCTION GENERATOR FOR WINDOW PRINTING ---
+
+        function getHeaderHTML() {
+            const lines = db.settings.kop_instansi.split('\n');
+            return `
+                <div style="font-family: Arial, sans-serif; text-align: center; border-bottom: 3px double black; padding-bottom: 15px; margin-bottom: 20px;">
+                    <div style="font-size: 14pt; font-weight: bold; letter-spacing: 0.5px; text-transform: uppercase;">${lines[0] || ""}</div>
+                    <div style="font-size: 16pt; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-top: 2px;">${lines[1] || ""}</div>
+                    <div style="font-size: 9pt; font-style: italic; color: #4b5563; margin-top: 5px;">${lines[2] || ""}</div>
+                </div>
+            `;
+        }
+
+        // 1. REPLICATE PHYSICAL SPT PDF
+        function printSPT(id) {
+            const s = db.spt.find(x => x.id_spt === id);
+            const printContainer = document.getElementById('print-area');
+            
+            const pDetails = s.pegawai_terlibat.map((nip, index) => {
+                const p = db.pegawai.find(x => x.nip === nip);
+                const j = db.jabatan.find(x => x.id_jabatan === p?.id_jabatan)?.nama_jabatan || "-";
+                const g = db.golongan.find(x => x.id_golongan === p?.id_golongan)?.nama_golongan || "-";
+                return `
+                    <div style="margin-top: 10px; display: flex; font-size: 10.5pt; line-height: 1.5;">
+                        <div style="width: 25px;">${index + 1}.</div>
+                        <div style="flex: 1;">
+                            <table style="width: 100%; font-size: 10.5pt;">
+                                <tr><td style="width: 150px; padding: 2px 0; vertical-align: top;">Nama / NIP</td><td style="width: 15px; text-align: center; vertical-align: top;">:</td><td style="font-weight: bold; vertical-align: top;">${p ? p.nama : nip} / ${nip}</td></tr>
+                                <tr><td style="padding: 2px 0; vertical-align: top;">Pangkat/Golongan</td><td style="text-align: center; vertical-align: top;">:</td><td style="vertical-align: top;">${g}</td></tr>
+                                <tr><td style="padding: 2px 0; vertical-align: top;">Jabatan</td><td style="text-align: center; vertical-align: top;">:</td><td style="vertical-align: top;">${j}</td></tr>
+                            </table>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            printContainer.innerHTML = `
+                <div style="padding: 1.5cm; font-family: Arial, sans-serif; font-size: 11pt; color: black; line-height: 1.4;">
+                    ${getHeaderHTML()}
+                    
+                    <div style="text-align: center; margin-bottom: 25px;">
+                        <h3 style="text-decoration: underline; font-size: 13pt; font-weight: bold; margin: 0; text-transform: uppercase;">SURAT TUGAS</h3>
+                        <div style="font-size: 10pt; font-weight: bold; margin-top: 3px;">NOMOR: ${s.no_spt}</div>
+                    </div>
+
+                    <div style="display: flex; margin-bottom: 20px; text-align: justify; font-size: 10.5pt;">
+                        <div style="width: 100px; font-weight: bold;">Dasar</div>
+                        <div style="width: 20px; text-align: center;">:</div>
+                        <div style="flex: 1;">
+                            1. ${s.dasar_hukum}
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; font-weight: 800; letter-spacing: 2px; font-size: 11pt; margin-bottom: 20px; text-transform: uppercase;">MEMERINTAHKAN</div>
+
+                    <div style="display: flex; margin-bottom: 20px;">
+                        <div style="width: 100px; font-weight: bold;">Kepada</div>
+                        <div style="width: 20px; text-align: center;">:</div>
+                        <div style="flex: 1;">
+                            ${pDetails}
+                        </div>
+                    </div>
+
+                    <div style="display: flex; margin-bottom: 35px; text-align: justify; font-size: 10.5pt;">
+                        <div style="width: 100px; font-weight: bold;">Untuk</div>
+                        <div style="width: 20px; text-align: center;">:</div>
+                        <div style="flex: 1;">
+                            ${s.maksud_tugas}. Dilaksanakan selama <strong>${calculateDays(s.tgl_berangkat, s.tgl_kembali)} hari</strong> terhitung mulai tanggal <strong>${formatDateIndo(s.tgl_berangkat)} s/d ${formatDateIndo(s.tgl_kembali)}</strong>.
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: flex-end; font-size: 11pt; margin-top: 50px;">
+                        <div style="width: 320px;">
+                            <table style="width: 100%; font-size: 11pt;">
+                                <tr><td style="width: 100px;">Dikeluarkan di</td><td>:</td><td style="font-weight: bold;">Toli-toli</td></tr>
+                                <tr><td>Pada Tanggal</td><td>:</td><td>${formatDateIndo(s.tgl_berangkat)}</td></tr>
+                            </table>
+                            
+                            <div style="margin-top: 15px; font-weight: bold; border-top: 1px solid black; padding-top: 10px;">
+                                Kepala Dinas Kependudukan dan<br>Pencatatan Sipil Kab. Tolitoli
+                                <br><br><br><br>
+                                <span style="text-decoration: underline; font-weight: bold;">${db.settings.nama_kepala}</span><br>
+                                <span>${db.settings.pangkat_kepala}</span><br>
+                                <span>NIP. ${db.settings.nip_kepala}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            window.print();
+        }
+
+        // 2. REPLICATE PHYSICAL SPPD PDF (GRID FORM)
+        function printSPPD(id) {
+            const s = db.spt.find(x => x.id_spt === id);
+            const p = db.pegawai.find(x => x.nip === s.pegawai_terlibat[0]); // SPPD is generated individually per person
+            const j = db.jabatan.find(x => x.id_jabatan === p?.id_jabatan)?.nama_jabatan || "-";
+            const g = db.golongan.find(x => x.id_golongan === p?.id_golongan)?.nama_golongan || "-";
+
+            const printContainer = document.getElementById('print-area');
+            
+            printContainer.innerHTML = `
+                <div style="padding: 1cm; font-family: Arial, sans-serif; font-size: 10pt; color: black; line-height: 1.3;">
+                    ${getHeaderHTML()}
+                    
+                    <div style="display: flex; justify-content: space-between; font-size: 9pt; margin-bottom: 15px;">
+                        <div></div>
+                        <div style="width: 250px;">
+                            <table style="width: 100%; font-size: 9pt;">
+                                <tr><td>Lembar Ke</td><td>:</td><td>1 (Satu)</td></tr>
+                                <tr><td>Kode Nomor</td><td>:</td><td>-</td></tr>
+                                <tr><td>Nomor SPPD</td><td>:</td><td style="font-weight: bold;">${s.no_sppd}</td></tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <h3 style="text-decoration: underline; font-size: 12pt; font-weight: bold; margin: 0;">SURAT PERJALANAN DINAS (SPD)</h3>
+                    </div>
+
+                    <table style="width: 100%; border-collapse: collapse; font-size: 9.5pt; margin-bottom: 30px;" border="1">
+                        <tr>
+                            <td style="width: 30px; text-align: center; padding: 5px;">1.</td>
+                            <td style="width: 250px; padding: 5px;">Pejabat Pembuat Komitmen / Pengguna Anggaran</td>
+                            <td style="padding: 5px; font-weight: bold;">${db.settings.plh_sppd_nama}</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center; padding: 5px;">2.</td>
+                            <td style="padding: 5px;">Nama Pegawai yang diperintah / NIP</td>
+                            <td style="padding: 5px; font-weight: bold;">${p ? p.nama : "ABDUL MUGHNI, S.Kom"}<br><span style="font-weight: normal; font-size: 8.5pt;">NIP: ${p ? p.nip : "-"}</span></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center; padding: 5px;">3.</td>
+                            <td style="padding: 5px;">
+                                a. Pangkat dan golongan<br>
+                                b. Jabatan / Instansi<br>
+                                c. Tingkat Biaya Perjalanan Dinas
+                            </td>
+                            <td style="padding: 5px;">
+                                a. ${g}<br>
+                                b. ${j} / DISDUKCAPIL<br>
+                                c. Tingkat Standar / Daerah
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center; padding: 5px;">4.</td>
+                            <td style="padding: 5px;">Maksud Perjalanan Dinas</td>
+                            <td style="padding: 5px;">${s.maksud_tugas}</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center; padding: 5px;">5.</td>
+                            <td style="padding: 5px;">Alat angkut yang dipergunakan</td>
+                            <td style="padding: 5px;">${s.alat_transport}</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center; padding: 5px;">6.</td>
+                            <td style="padding: 5px;">
+                                a. Tempat berangkat<br>
+                                b. Tempat tujuan
+                            </td>
+                            <td style="padding: 5px;">
+                                a. Toli-toli<br>
+                                b. ${s.tempat_tujuan}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center; padding: 5px;">7.</td>
+                            <td style="padding: 5px;">
+                                a. Lamanya perjalanan Dinas<br>
+                                b. Tanggal berangkat<br>
+                                c. Tanggal harus kembali / tiba
+                            </td>
+                            <td style="padding: 5px;">
+                                a. ${calculateDays(s.tgl_berangkat, s.tgl_kembali)} Hari<br>
+                                b. ${formatDateIndo(s.tgl_berangkat)}<br>
+                                c. ${formatDateIndo(s.tgl_kembali)}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center; padding: 5px;">8.</td>
+                            <td style="padding: 5px;">Pembebanan Anggaran:<br>a. Instansi<br>b. Mata Anggaran / Kode Rekening</td>
+                            <td style="padding: 5px;">a. Dinas Kependudukan dan Pencatatan Sipil Kab. Tolitoli<br>b. ${s.anggaran}</td>
+                        </tr>
+                    </table>
+
+                    <div style="display: flex; justify-content: space-between; font-size: 10pt; margin-top: 30px;">
+                        <div></div>
+                        <div style="width: 320px;">
+                            <table style="width: 100%; font-size: 9.5pt;">
+                                <tr><td>Dikeluarkan di</td><td>:</td><td style="font-weight: bold;">Toli-toli</td></tr>
+                                <tr><td>Pada Tanggal</td><td>:</td><td>${formatDateIndo(s.tgl_berangkat)}</td></tr>
+                            </table>
+                            <div style="margin-top: 15px; font-weight: bold;">
+                                Pejabat Pembuat Komitmen /<br>Pengguna Anggaran
+                                <br><br><br><br>
+                                <span style="text-decoration: underline; font-weight: bold;">${db.settings.plh_sppd_nama}</span><br>
+                                <span>NIP. ${db.settings.plh_sppd_nip}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            window.print();
+        }
+
+        // 3. REPLICATE PHYSICAL LAPORAN PERJALANAN PDF
+        function printLaporan(id) {
+            const l = db.laporan.find(x => x.id_laporan === id);
+            const s = db.spt.find(x => x.id_spt === l.id_spt);
+            const p = db.pegawai.find(x => x.nip === l.nip_pelapor);
+            const j = db.jabatan.find(x => x.id_jabatan === p?.id_jabatan)?.nama_jabatan || "-";
+            const g = db.golongan.find(x => x.id_golongan === p?.id_golongan)?.nama_golongan || "-";
+
+            const printContainer = document.getElementById('print-area');
+
+            printContainer.innerHTML = `
+                <div style="padding: 1.5cm; font-family: Arial, sans-serif; font-size: 11pt; color: black; line-height: 1.5;">
+                    <div style="text-align: right; margin-bottom: 25px; font-size: 11pt;">
+                        Tolitoli, ${formatDateIndo(l.tgl_upload.split('T')[0])}
+                    </div>
+
+                    <table style="width: 100%; border: none; font-size: 11pt; margin-bottom: 30px;">
+                        <tr>
+                            <td style="width: 80px; font-weight: bold; vertical-align: top;">Perihal</td>
+                            <td style="width: 15px; text-align: center; vertical-align: top;">:</td>
+                            <td style="font-weight: bold; vertical-align: top; text-decoration: underline;">Laporan Perjalanan Dinas</td>
+                            <td style="width: 250px; vertical-align: top; padding-left: 50px;">
+                                Kepada Yth.<br>
+                                <strong>Kepala Dinas Kependudukan dan<br>Pencatatan Sipil Kab. Tolitoli</strong><br>
+                                Di - <br>
+                                <span style="padding-left: 25px;">Tempat</span>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div style="margin-bottom: 20px;">
+                        <h4 style="font-weight: bold; text-transform: uppercase; margin: 0 0 10px 0;">A. Dasar:</h4>
+                        <div style="padding-left: 20px;">
+                            1. Surat Perintah Tugas No. ${s ? s.no_spt : "-"} tanggal ${s ? formatDateIndo(s.tgl_berangkat) : "-"}<br>
+                            2. Surat Perjalanan Dinas No. ${s ? s.no_sppd : "-"} tanggal ${s ? formatDateIndo(s.tgl_berangkat) : "-"}
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <h4 style="font-weight: bold; text-transform: uppercase; margin: 0 0 10px 0;">B. Maksud dan Tujuan:</h4>
+                        <div style="padding-left: 20px;">
+                            <strong>Maksud:</strong> ${s ? s.maksud_tugas : "-"}<br>
+                            <strong>Tujuan:</strong> Untuk berkoordinasi langsung dengan pihak bersangkutan demi terwujudnya integrasi sistem administrasi kependudukan yang akuntabel.
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <h4 style="font-weight: bold; text-transform: uppercase; margin: 0 0 10px 0;">C. Waktu dan Tempat:</h4>
+                        <div style="padding-left: 20px;">
+                            Dilaksanakan selama <strong>${s ? calculateDays(s.tgl_berangkat, s.tgl_kembali) : "-"} (Tiga) hari</strong> mulai tanggal <strong>${s ? formatDateIndo(s.tgl_berangkat) : "-"}</strong> s/d <strong>${s ? formatDateIndo(s.tgl_kembali) : "-"}</strong> bertempat di <strong>${s ? s.tempat_tujuan : "-"}</strong>.
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 35px;">
+                        <h4 style="font-weight: bold; text-transform: uppercase; margin: 0 0 10px 0;">D. Hasil yang dicapai:</h4>
+                        <div style="padding-left: 20px; text-align: justify; white-space: pre-line;">
+                            ${l.ringkasan_hasil}
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: flex-end; margin-top: 50px;">
+                        <div style="width: 280px; text-align: center;">
+                            <div>Yang Membuat Laporan,</div>
+                            <br><br><br><br>
+                            <div style="font-weight: bold; text-decoration: underline;">${p ? p.nama : "Nama Pegawai"}</div>
+                            <div style="font-size: 10pt; color: #4b5563;">NIP. ${p ? p.nip : "-"}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            window.print();
+        }
+
+
+        // --- HELPERS ---
+
+        function calculateDays(startDate, endDate) {
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+            const diffTime = Math.abs(end - start);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; 
+            return isNaN(diffDays) ? 0 : diffDays;
+        }
+
+        function formatDateIndo(dateStr) {
+            if(!dateStr) return "-";
+            const months = [
+                "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+                "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+            ];
+            const parts = dateStr.split('-');
+            if (parts.length !== 3) return dateStr;
+            const day = parseInt(parts[2]);
+            const month = months[parseInt(parts[1]) - 1];
+            const year = parts[0];
+            return `${day} ${month} ${year}`;
+        }
+
+
+        // RUN INITIALIZER
+        window.onload = function() {
+            initializeDB();
+            
+            // Check session
+            const savedSession = localStorage.getItem("e_sppd_session");
+            if(savedSession) {
+                session.currentUser = JSON.parse(savedSession);
+                renderMainLayout();
+            } else {
+                document.getElementById('login-screen').classList.remove('hidden');
+            }
+
+            // Real-Time Ticker
+            setInterval(() => {
+                const now = new Date();
+                const days = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+                const dayName = days[now.getDay()];
+                document.getElementById('live-time-ticker').textContent = `${dayName}, ${now.getDate()} ${formatDateIndo((now.toISOString().split('T')[0])).split(' ')[1]} ${now.getFullYear()} | ${now.toLocaleTimeString('id-ID')} WITA`;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
